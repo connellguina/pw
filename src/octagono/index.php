@@ -19,7 +19,7 @@
             $apotema = $l/(2*tan(M_PI_4/2));
             $area = 4*$l*$apotema;
     
-            $html = "<p>Un octágono regular con lados de $li tiene un área de $area</p>";
+            $html = "<p>Un octágono regular con lados de $l tiene un área de $area</p>";
             $html .= '<a href="">Regresar</a>';
         }
 
