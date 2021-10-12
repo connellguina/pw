@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php 
-    $sitios = ['triangulitos/index.php', 'octagono/index.php', 'arreglos-asociativos/index.php' ];
+    $sitios = ['triangulitos/', 'octagono/', 'arreglos-asociativos/' ];
     $sitiosName = ['Calcular la hipotenusa del triangulo rectangulo', 'Calcular el área de un octágono regular', 
         'Programa de Arreglos Asociativos'];
     $lensitios = count($sitios);
