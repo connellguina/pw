@@ -1,0 +1,16 @@
+{
+    "name": "connellguina/pw",
+    "description": "Tareas de Programacion Web",
+    "autoload": {
+        "psr-4": {
+            "Connellguina\\Pw\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Guinna Connell",
+            "email": "connellguina@gmail.com"
+        }
+    ],
+    "require": {}
+}

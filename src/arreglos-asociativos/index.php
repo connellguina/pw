@@ -34,7 +34,6 @@
             $html .= '<label>Lugar de trabajo: </label>';
             $html .= '<input name="lugar"><br>';
             $html .= '</form>';
-
         }?>
     </div>
 </body>
