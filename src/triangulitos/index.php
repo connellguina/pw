@@ -15,7 +15,7 @@
     if (isset($_POST['calcular-hipotenusa'])) {
         $hipotenusa = sqrt(pow($a, 2) + pow($b, 2));
 
-        $html = "<p>Una hipotenusa con catetos de $a cm y $b cm tiene una hipotenusa de $hipotenusa cm</p>";
+        $html = "<p>Un triángulo rectángulo con catetos de $a cm y $b cm tiene una hipotenusa de $hipotenusa cm</p>";
         $html .= '<a href="">Regresar</a>';
     } else {
         $html = '<form method="post">';
