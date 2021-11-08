@@ -15,22 +15,22 @@ if ($_POST['crear-pozo']) {
 
     include('db.php');
 
-    $nombre = mysqli_real_escape_string($con, $_POST['nombre']);
-    $descripcion = mysqli_real_escape_string($con, $_POST['descripcion']);
+    $nombre = pg_escape_string($con, $_POST['nombre']);
+    $descripcion = pg_escape_string($con, $_POST['descripcion']);
 
-    $result = mysqli_query($con, "SELECT * FROM pozos WHERE nombre = '{$nombre}'");
+    $result = pg_query($con, "SELECT * FROM manometro_pozos WHERE name = '{$nombre}'");
 
     if ($result) {
-        $pozos_existentes = mysqli_fetch_all($result);
+        $pozos_existentes = pg_fetch_all($result, PGSQL_ASSOC);
 
-        if (count($pozos_existentes) === 0) {
-            $result = mysqli_query($con, "INSERT INTO pozos (nombre, descripcion) VALUES ('{$nombre}', '{$descripcion}')");
+        if ($pozos_existentes === false || count($pozos_existentes) === 0) {
+            $result = pg_query($con, "INSERT INTO manometro_pozos (name, descripcion) VALUES ('{$nombre}', '{$descripcion}')");
 
             if ($result) {
                 header('Location: index.php');
                 exit();
             } else {
-                $_SESSION['error'] = mysqli_error($con);
+                $_SESSION['error'] = pg_last_error($con);
                 header('Location: index.php');
                 exit();
             }
@@ -40,7 +40,7 @@ if ($_POST['crear-pozo']) {
             exit();
         }
     } else {
-        $_SESSION['error'] = mysqli_error($con);
+        $_SESSION['error'] = pg_last_error($con);
         header('Location: index.php');
         exit();
     }

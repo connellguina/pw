@@ -15,13 +15,13 @@ if ($_POST['entrar']) {
 
     include('db.php');
 
-    $username = mysqli_real_escape_string($con, $_POST['username']);
+    $username = pg_escape_string($con, $_POST['username']);
 
-    $result = mysqli_query($con, "SELECT * FROM usuarios WHERE username = '{$username}'");
+    $result = pg_query($con, "SELECT * FROM manometro_usuarios WHERE username = '{$username}'");
 
     if ($result) {
 
-        $usuarios = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $usuarios = pg_fetch_all($result, PGSQL_ASSOC);
 
 
         if (count($usuarios) === 1) {
@@ -42,7 +42,7 @@ if ($_POST['entrar']) {
             exit();
         }
     } else {
-        $_SESSION['error'] = mysqli_error($con);
+        $_SESSION['error'] = pg_last_error($con);
         header('Location: login.php');
         exit();
     }

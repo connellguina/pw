@@ -15,23 +15,23 @@ if ($_POST['editar-pozo']) {
 
     include('db.php');
 
-    $nombre = mysqli_real_escape_string($con, $_POST['nombre']);
-    $descripcion = mysqli_real_escape_string($con, $_POST['descripcion']);
-    $id = mysqli_real_escape_string($con, $_POST['id']);
+    $nombre = pg_escape_string($con, $_POST['nombre']);
+    $descripcion = pg_escape_string($con, $_POST['descripcion']);
+    $id = pg_escape_string($con, $_POST['id']);
 
-    $result = mysqli_query($con, "SELECT * FROM pozos WHERE id = '{$id}'");
+    $result = pg_query($con, "SELECT * FROM manometro_pozos WHERE id = '{$id}'");
 
     if ($result) {
-        $pozos_existentes = mysqli_fetch_all($result);
+        $pozos_existentes = pg_fetch_all($result, PGSQL_ASSOC);
 
         if (count($pozos_existentes) === 1) {
-            $result = mysqli_query($con, "UPDATE pozos SET nombre = '{$nombre}', descripcion = '{$descripcion}' WHERE id = '{$id}'");
+            $result = pg_query($con, "UPDATE manometro_pozos SET name = '{$nombre}', descripcion = '{$descripcion}' WHERE id = '{$id}'");
 
             if ($result) {
                 header('Location: index.php');
                 exit();
             } else {
-                $_SESSION['error'] = mysqli_error($con);
+                $_SESSION['error'] = pg_last_error($con);
                 header('Location: index.php');
                 exit();
             }
@@ -41,7 +41,7 @@ if ($_POST['editar-pozo']) {
             exit();
         }
     } else {
-        $_SESSION['error'] = mysqli_error($con);
+        $_SESSION['error'] = pg_last_error($con);
         header('Location: index.php');
         exit();
     }

@@ -15,24 +15,24 @@ if ($_POST['registrar']) {
 
     include('db.php');
 
-    $username = mysqli_real_escape_string($con, $_POST['username']);
+    $username = pg_escape_string($con, $_POST['username']);
 
-    $result = mysqli_query($con, "SELECT * FROM usuarios WHERE username = '{$username}'");
+    $result = pg_query($con, "SELECT * FROM manometro_usuarios WHERE username = '{$username}'");
 
     if ($result) {
-        $usuarios = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $usuarios = pg_fetch_all($result, PGSQL_ASSOC);
 
-        if (count($usuarios) === 0) {
+        if ($usuarios === false || count($usuarios) === 0) {
             $hash = md5($_POST['password']);
 
-            $result = mysqli_query($con, "INSERT INTO usuarios (username, password) VALUES ('{$username}', '{$hash}')");
+            $result = pg_query($con, "INSERT INTO manometro_usuarios (username, password) VALUES ('{$username}', '{$hash}')");
 
             if ($result) {
                 $_SESSION['usuario'] = $username;
                 header('Location: index.php');
                 exit();
             } else {
-                $_SESSION['error'] = mysqli_error($con);
+                $_SESSION['error'] = pg_last_error($con);
                 header('Location: signup.php');
                 exit();
             }
@@ -42,7 +42,7 @@ if ($_POST['registrar']) {
             exit();
         }
     } else {
-        $_SESSION['error'] = mysqli_error($con);
+        $_SESSION['error'] = pg_last_error($con);
         header('Location: signup.php');
         exit();
     }

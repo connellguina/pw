@@ -10,7 +10,7 @@
     <?php 
     $sitios = ['triangulitos/', 'octagono/', 'arreglos-asociativos/' , 'manometro/'];
     $sitiosName = ['Calcular la hipotenusa del triangulo rectangulo', 'Calcular el área de un octágono regular', 
-        'Programa de Arreglos Asociativos', 'Manómetro para pozos petroleros'];
+        'Programa de Arreglos Asociativos', 'Manómetro para manometro_pozos petroleros'];
     $lensitios = count($sitios);
     
     $list = '<ol>';

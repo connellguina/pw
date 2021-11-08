@@ -1,8 +1,8 @@
 <?php
 
 
-$con = mysqli_connect('localhost:3307', 'root', '', 'pozos');
+$con = pg_connect('host=localhost port=5432 dbname=manometro user=guina password=1234');
 
 if (!$con) {
-    die(mysqli_connect_error());
+    exit(pg_last_error());
 }
