@@ -8,9 +8,9 @@
 </head>
 <body>
     <?php 
-    $sitios = ['triangulitos/', 'octagono/', 'arreglos-asociativos/' ];
+    $sitios = ['triangulitos/', 'octagono/', 'arreglos-asociativos/' , 'manometro/'];
     $sitiosName = ['Calcular la hipotenusa del triangulo rectangulo', 'Calcular el área de un octágono regular', 
-        'Programa de Arreglos Asociativos'];
+        'Programa de Arreglos Asociativos', 'Manómetro para pozos petroleros'];
     $lensitios = count($sitios);
     
     $list = '<ol>';
