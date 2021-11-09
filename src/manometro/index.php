@@ -49,7 +49,7 @@ include('header.php'); ?>
 
 
                 if (count($pozos) === 0) {
-                    echo '<li class="list-group-item">No se han registrado manometro_pozos</li>';
+                    echo '<li class="list-group-item">No se han registrado pozos</li>';
                 } else {
                     foreach ($pozos as $pozo) {
                         echo '<li class="list-group-item d-flex justify-content-between">';
