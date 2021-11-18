@@ -36,9 +36,7 @@ if ($_POST['agregar_medida']) {
             exit();
         }
 
-        $result = pg_query($con, 
-            "INSERT INTO manometro_medidas (lectura, tiempo, id_pozo) VALUES ('{$lectura}', '{$tiempo}', '{$id_pozo}')"
-        );
+        $result = pg_query($con, "INSERT INTO manometro_medidas (lectura, tiempo, id_pozo) VALUES ('{$lectura}', '{$tiempo}', '{$pozo['id']}')");
 
         if (!$result) {
             $_SESSION['error'] = pg_last_error($con);
@@ -46,7 +44,8 @@ if ($_POST['agregar_medida']) {
             exit();
         }
 
-
+        $_SESSION['error'] = pg_last_error($con);
+        header("Location: medidas.php?pozo=$id_pozo");
         
     } else {
         if (!$result) {
