@@ -43,7 +43,7 @@ if ($_POST['agregar_medida']) {
         }
 
         $_SESSION['error'] = pg_last_error($con);
-        header("Location: medidas.php?pozo=$id_pozo");
+        header("Location: medidas.php?pozo={$pozo['id']}");
         exit();
     } else {
             $_SESSION['error'] = pg_last_error($con);
