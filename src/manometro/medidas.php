@@ -121,10 +121,10 @@ if ($_POST['agregar_medida']) {
             $result = pg_query($con, "SELECT * FROM manometro_medidas WHERE id_pozo = '$pozo_id'");
 
             if ($result) {
-                $pozos = pg_fetch_all($result, MYSQLI_ASSOC);
+                $medidas = pg_fetch_all($result, MYSQLI_ASSOC);
 
 
-                if (count($pozos) === 0) {
+                if (!$medidas) {
                     echo '<li class="list-group-item">No se han registrado medidas</li>';
                 } else {
                     foreach ($medidas as $medida) {
