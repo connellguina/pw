@@ -104,7 +104,7 @@ if ($_POST['agregar_medida']) {
     <div class="justify-content-between d-flex">
         <h3>Medidas del pozo <?php echo $pozo['nombre']; ?></h3>
         <div>
-            <a class="btn btn-primary" data-bs-toggle="collapse" href="#agregar-pozo" aria-expanded="false" aria-controls="agregar-pozo">
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#agregar-medida" aria-expanded="false" aria-controls="agregar-pozo">
                 Agregar medida
             </a>
         </div>
