@@ -27,7 +27,7 @@ if ($_POST['agregar_medida']) {
 
     if ($result) {
         $lectura = $_POST['lectura'];
-        $tiempo = date('Y-m-d hh:mm:ss');
+        $tiempo = "{$_POST['fecha']} {$_POST['tiempo']}";
         $pozo = pg_fetch_assoc($result, PGSQL_ASSOC);
 
         if (!$pozo) {
@@ -110,7 +110,7 @@ if ($_POST['agregar_medida']) {
         </div>
     </div>
     <div class="collapse p-2" id="agregar-medida">
-        <form action="crear_pozo.php" method="POST">
+        <form action="medidas.php" method="POST">
             <label for="lectura" class="form-label">Lectura:</label>
             <input type="number" min="0" class="form-control" name="lectura" />
             <label for="fecha" class="form-label">Fecha:</label>
