@@ -130,7 +130,6 @@ if ($_POST['agregar_medida']) {
                     foreach ($medidas as $medida) {
                         echo '<li class="list-group-item d-flex justify-content-between">';
                         echo '<a data-bs-toggle="collapse" href="#editar-medida-'.$medida['id'].'" aria-expanded="false" aria-controls="agregar-medida">'.$medida['lectura'].' bar</a>';
-                        echo '<a href="medidas.php?medida='.$medida['id'].'" class="btn btn-primary">Medidas</a>';
                         echo '<a href="eliminar_medida.php?medida='.$medida['id'].'" class="btn btn-danger">Eliminar</a>';
                         echo '</li>';
                         echo '<div class="collapse p-4 collapse-medida" id="editar-medida-'.$medida['id'].'">';
