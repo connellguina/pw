@@ -66,8 +66,8 @@ if ($_POST['agregar_medida']) {
         header('Location: index.php');
         exit();
     }
-    
-    $result = pg_query($con, "SELECT * FROM manometro_pozos WHERE id_pozo = '$pozo_id'");
+
+    $result = pg_query($con, "SELECT * FROM manometro_pozos WHERE id = '$pozo_id'");
     
     if (!$result) {
         $_SESSION['error'] = 'ID de pozo inválido';
@@ -76,7 +76,7 @@ if ($_POST['agregar_medida']) {
         exit();
     }
     
-    $pozo = pg_fetch_assoc($result);
+    $pozo = pg_fetch_all($result);
     
     if (!$pozo) {
         $_SESSION['error'] = 'ID de pozo inválido';
@@ -122,7 +122,7 @@ if ($_POST['agregar_medida']) {
     </div>
     <ul class="list-group">
         <?php
-            $result = pg_query($con, "SELECT * FROM manometro_medidas WHERE pozo_id = '$pozo_id'");
+            $result = pg_query($con, "SELECT * FROM manometro_medidas WHERE id_pozo = '$pozo_id'");
 
             if ($result) {
                 $pozos = pg_fetch_all($result, MYSQLI_ASSOC);
