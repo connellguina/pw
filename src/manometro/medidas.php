@@ -67,7 +67,7 @@ if ($_POST['agregar_medida']) {
         exit();
     }
     
-    $result = pg_query($con, "SELECT * FROM manometro_pozos WHERE id = '$pozo_id'");
+    $result = pg_query($con, "SELECT * FROM manometro_pozos WHERE id_pozo = '$pozo_id'");
     
     if (!$result) {
         $_SESSION['error'] = 'ID de pozo inválido';
