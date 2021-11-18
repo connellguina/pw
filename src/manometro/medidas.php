@@ -58,7 +58,7 @@ if ($_POST['agregar_medida']) {
 
 } else {
 
-    $pozo_id = $_GET['pozo_id'];
+    $pozo_id = $_GET['pozo'];
 
     if (!is_numeric($pozo_id)) {
         $_SESSION['error'] = 'ID de pozo inválido';
