@@ -25,7 +25,7 @@ if ($_POST['agregar_medida']) {
 
     if ($result) {
         $lectura = $_POST['lectura'];
-        $tiempo = "{$_POST['fecha']} {$_POST['tiempo']}:00";
+        $tiempo = "{$_POST['fecha']} {$_POST['hora']}:00";
         $pozo = pg_fetch_assoc($result);
 
         if (!$pozo) {
