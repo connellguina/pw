@@ -9,8 +9,8 @@ if (!$_SESSION['usuario']) {
 include('db.php');
 
 if ($_POST['agregar_medida']) {
-    if (!$_POST['lectura'] || !$_POST['id_pozo']) {
-        $_SESSION['error'] = 'Se necesita nombre y descripción del pozo';
+    if (!$_POST['lectura'] || !$_POST['id_pozo'] || !$_POST['fecha'] || !$_POST['hora']) {
+        $_SESSION['error'] = 'Se necesita lectura, fecha y hora';
         header('Location: index.php');
         exit();
     }
@@ -128,6 +128,7 @@ if ($_POST['agregar_medida']) {
                     echo '<li class="list-group-item">No se han registrado medidas</li>';
                 } else {
                     foreach ($medidas as $medida) {
+                        $tiempo_arr = explode(' ', $medida['tiempo']);
                         echo '<li class="list-group-item d-flex justify-content-between">';
                         echo '<a data-bs-toggle="collapse" href="#editar-medida-'.$medida['id'].'" aria-expanded="false" aria-controls="agregar-medida">'.$medida['lectura'].' bar</a>';
                         echo '<a href="eliminar_medida.php?medida='.$medida['id'].'" class="btn btn-danger">Eliminar</a>';
@@ -138,9 +139,9 @@ if ($_POST['agregar_medida']) {
                         echo '<label for="nombre" class="form-label">Nombre:</label>';
                         echo '<input type="number" class="form-control" name="nombre" value="'.$medida['lectura'].'" disabled />';
                         echo '<label for="fecha" class="form-label">Fecha:</label>';
-                        echo ' <input class="form-control" type="date" name="fecha" disabled value="'.$medida['fecha'].'">';
+                        echo ' <input class="form-control" type="date" name="fecha" disabled value="'.$tiempo_arr[0].'">';
                         echo '<label for="hora" class="form-label">Hora:</label>';
-                        echo ' <input class="form-control" type="time" name="hora" disabled value="'.$medida['hora'].'">';
+                        echo ' <input class="form-control" type="time" name="hora" disabled value="'.$tiempo_arr[1].'">';
                         echo '<input type="submit" value="EDITAR" name="editar-medida" class="btn btn-success mt-1" disabled  />';
                         echo '</div>';
                     }
