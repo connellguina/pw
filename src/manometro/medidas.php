@@ -46,43 +46,42 @@ if ($_POST['agregar_medida']) {
         header("Location: medidas.php?pozo={$pozo['id']}");
         exit();
     } else {
-            $_SESSION['error'] = pg_last_error($con);
-            header('Location: index.php');
-            exit();
+        $_SESSION['error'] = pg_last_error($con);
+        header('Location: index.php');
+        exit();
     }
-
 } else {
 
     $pozo_id = $_GET['pozo'];
 
     if (!is_numeric($pozo_id)) {
         $_SESSION['error'] = 'ID de pozo inválido';
-    
+
         header('Location: index.php');
         exit();
     }
 
     $result = pg_query($con, "SELECT * FROM manometro_pozos WHERE id = '$pozo_id'");
-    
+
     if (!$result) {
         $_SESSION['error'] = 'ID de pozo inválido';
-    
+
         header('Location: index.php');
         exit();
     }
-    
+
     $pozo = pg_fetch_all($result);
-    
+
     if (!$pozo) {
         $_SESSION['error'] = 'ID de pozo inválido';
-    
+
         header('Location: index.php');
         exit();
     }
-    
+
     include('header.php');
 }
- ?>
+?>
 <div class="container">
     <?php
     if ($_SESSION['error']) {
@@ -116,8 +115,9 @@ if ($_POST['agregar_medida']) {
             <input type="submit" value="AGREGAR MEDIDA" name="agregar_medida" class="btn btn-success mt-1" />
         </form>
     </div>
-    <ul class="list-group">
-        <?php
+    <div class="accordion" id="accordionExample">
+        <ul class="list-group">
+            <?php
             $result = pg_query($con, "SELECT * FROM manometro_medidas WHERE id_pozo = '$pozo_id'");
 
             if ($result) {
@@ -129,31 +129,29 @@ if ($_POST['agregar_medida']) {
                 } else {
                     foreach ($medidas as $medida) {
                         $tiempo_arr = explode(' ', $medida['tiempo']);
-                        echo '<li class="list-group-item d-flex justify-content-between">';
-                        echo '<a data-bs-toggle="collapse" href="#editar-medida-'.$medida['id'].'" aria-expanded="false" aria-controls="agregar-medida">'.$medida['lectura'].' bar</a>';
-                        echo '<a href="eliminar_medida.php?medida='.$medida['id'].'" class="btn btn-danger">Eliminar</a>';
+                        echo '<div class="accordion-item"><li class="list-group-item d-flex justify-content-between">';
+                        echo '<a data-bs-toggle="collapse" href="#editar-medida-' . $medida['id'] . '" aria-expanded="false" aria-controls="agregar-medida">' . $medida['lectura'] . ' bar</a>';
+                        echo '<a href="eliminar_medida.php?medida=' . $medida['id'] . '" class="btn btn-danger">Eliminar</a>';
                         echo '</li>';
-                        echo '<div class="collapse p-4 collapse-medida" id="editar-medida-'.$medida['id'].'">';
+                        echo '<div class="collapse p-4 collapse-medida" id="editar-medida-' . $medida['id'] . '">';
                         echo '<form action="editar_medida.php" method="POST">';
-                        echo '<input type="hidden" name="id" value="'.$medida['id'].'" disabled>';
+                        echo '<input type="hidden" name="id" value="' . $medida['id'] . '" disabled>';
                         echo '<label for="nombre" class="form-label">Nombre:</label>';
-                        echo '<input type="number" class="form-control" name="nombre" value="'.$medida['lectura'].'" disabled />';
+                        echo '<input type="number" class="form-control" name="nombre" value="' . $medida['lectura'] . '" disabled />';
                         echo '<label for="fecha" class="form-label">Fecha:</label>';
-                        echo ' <input class="form-control" type="date" name="fecha" disabled value="'.$tiempo_arr[0].'">';
+                        echo ' <input class="form-control" type="date" name="fecha" disabled value="' . $tiempo_arr[0] . '">';
                         echo '<label for="hora" class="form-label">Hora:</label>';
-                        echo ' <input class="form-control" type="time" name="hora" disabled value="'.$tiempo_arr[1].'">';
+                        echo ' <input class="form-control" type="time" name="hora" disabled value="' . $tiempo_arr[1] . '">';
                         echo '<input type="submit" value="EDITAR" name="editar-medida" class="btn btn-success mt-1" disabled  />';
-                        echo '</div>';
+                        echo '</div></div>';
                     }
                 }
-
-                
-               
             } else {
-                echo '<li class="list-group-item">'.pg_last_error($con).'</li>';
+                echo '<li class="list-group-item">' . pg_last_error($con) . '</li>';
             }
-        ?>
-    </ul>
+            ?>
+        </ul>
+    </div>
 </div>
 
 <?php include('footer.php'); ?>
