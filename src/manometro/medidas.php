@@ -117,7 +117,7 @@ if ($_POST['agregar_medida']) {
             <input type="date" class="form-control" name="fecha">
             <label for="hora" class="form-label">Hora:</label>
             <input type="time" class="form-control" name="hora">
-            <input type="submit" value="AGREGAR MEDIDA" name="agregar-medida" class="btn btn-success mt-1" />
+            <input type="submit" value="AGREGAR MEDIDA" name="agregar_medida" class="btn btn-success mt-1" />
         </form>
     </div>
     <ul class="list-group">
