@@ -40,24 +40,24 @@ include('header.php'); ?>
             <input type="submit" value="REGISTRAR" name="crear-pozo" class="btn btn-success mt-1" />
         </form>
     </div>
-    <ul class="list-group">
+    <div class="accordion" id="accordionExample">
+
         <?php
             $result = pg_query($con, "SELECT * FROM manometro_pozos");
 
             if ($result) {
                 $pozos = pg_fetch_all($result, MYSQLI_ASSOC);
 
-
                 if (count($pozos) === 0) {
                     echo '<li class="list-group-item">No se han registrado pozos</li>';
                 } else {
                     foreach ($pozos as $pozo) {
-                        echo '<li class="list-group-item d-flex justify-content-between">';
+                        echo '<div class="list-group-item d-flex justify-content-between">';
                         echo '<a data-bs-toggle="collapse" href="#editar-pozo-'.$pozo['id'].'" aria-expanded="false" aria-controls="agregar-pozo">'.$pozo['name'].'</a>';
                         echo '<a href="medidas.php?pozo='.$pozo['id'].'" class="btn btn-primary">Medidas</a>';
                         echo '<a href="eliminar_pozo.php?pozo='.$pozo['id'].'" class="btn btn-danger">Eliminar</a>';
-                        echo '</li>';
-                        echo '<div class="collapse p-4 collapse-pozo" id="editar-pozo-'.$pozo['id'].'">';
+                        echo '</div>';
+                        echo '<div class="collapse p-4 collapse-pozo" id="editar-pozo-'.$pozo['id'].'" data-bs-parent="#accordionExample">';
                         echo '<form action="editar_pozo.php" method="POST">';
                         echo '<input type="hidden" name="id" value="'.$pozo['id'].'" disabled>';
                         echo '<label for="nombre" class="form-label">Nombre:</label>';
@@ -75,7 +75,8 @@ include('header.php'); ?>
                 echo '<li class="list-group-item">'.pg_last_error($con).'</li>';
             }
         ?>
-    </ul>
+    </div>
+
 </div>
 
 <?php include('footer.php'); ?>
