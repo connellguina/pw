@@ -106,6 +106,7 @@ if ($_POST['agregar_medida']) {
     </div>
     <div class="collapse p-2" id="agregar-medida">
         <form action="medidas.php" method="POST">
+            <input type="hidden" name="id_pozo" value="<?php echo $pozo_id; ?>">
             <label for="lectura" class="form-label">Lectura:</label>
             <input type="number" min="0" class="form-control" name="lectura" />
             <label for="fecha" class="form-label">Fecha:</label>
