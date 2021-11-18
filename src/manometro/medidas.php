@@ -128,11 +128,11 @@ if ($_POST['agregar_medida']) {
                 } else {
                     foreach ($medidas as $medida) {
                         $tiempo_arr = explode(' ', $medida['tiempo']);
-                        echo '<div class="accordion-item"><h2 class="list-group-item d-flex justify-content-between">';
+                        echo '<div class="accordion-item"><h4 class="list-group-item d-flex justify-content-between">';
                         echo '<a data-bs-toggle="collapse" href="#editar-medida-' . $medida['id'] . '" aria-expanded="false" aria-controls="agregar-medida">' . $medida['lectura'] . ' bar</a>';
                         echo '<a href="eliminar_medida.php?medida=' . $medida['id'] . '" class="btn btn-danger">Eliminar</a>';
-                        echo '</h2>';
-                        echo '<div class="collapse p-4 collapse-medida" id="editar-medida-' . $medida['id'] . '">';
+                        echo '</h4>';
+                        echo '<div class="collapse p-4 collapse-medida" id="editar-medida-' . $medida['id'] . '" data-bs-parent="#accordionExample">';
                         echo '<form action="editar_medida.php" method="POST">';
                         echo '<input type="hidden" name="id" value="' . $medida['id'] . '" disabled>';
                         echo '<label for="nombre" class="form-label">Nombre:</label>';
