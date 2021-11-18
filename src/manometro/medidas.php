@@ -21,14 +21,12 @@ if ($_POST['agregar_medida']) {
         exit();
     }
 
-    $id_pozo = $_POST['id_pozo'];
-
-    $result = pg_query($con, "SELECT * FROM manometro_pozos WHERE id = '{$id_pozo}'");
+    $result = pg_query($con, "SELECT * FROM manometro_pozos WHERE id = '{$_POST['id_pozo']}'");
 
     if ($result) {
         $lectura = $_POST['lectura'];
         $tiempo = "{$_POST['fecha']} {$_POST['tiempo']}";
-        $pozo = pg_fetch_assoc($result, PGSQL_ASSOC);
+        $pozo = pg_fetch_assoc($result);
 
         if (!$pozo) {
             $_SESSION['error'] = 'El pozo no existe';
@@ -46,13 +44,11 @@ if ($_POST['agregar_medida']) {
 
         $_SESSION['error'] = pg_last_error($con);
         header("Location: medidas.php?pozo=$id_pozo");
-        
+        exit();
     } else {
-        if (!$result) {
             $_SESSION['error'] = pg_last_error($con);
             header('Location: index.php');
             exit();
-        }
     }
 
 } else {
