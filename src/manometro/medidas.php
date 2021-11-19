@@ -27,7 +27,7 @@ if ($_POST['agregar_medida']) {
 
     if ($result) {
         $lectura = pg_escape_string($con, $_POST['lectura']);
-        $tiempo = pg_escape_string($con, "{$_POST['fecha']} {$_POST['hora']}:00");
+        $tiempo = pg_escape_string($con, "{$_POST['fecha']} {$_POST['hora']}");
         $pozo = pg_fetch_assoc($result);
 
         if (!$pozo) {
