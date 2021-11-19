@@ -34,6 +34,14 @@ if ($_POST['agregar_medida']) {
             exit();
         }
 
+        $result = pg_query($con, "SELECT * FROM manometro_medidas WHERE tiempo = '{$tiempo}'");
+
+        if (pg_fetch_row($result)) {
+            $_SESSION['error'] = "Ya hay una medida para $tiempo";
+            header('Location: index.php');
+            exit();
+        }
+
         $result = pg_query($con, "INSERT INTO manometro_medidas (lectura, tiempo, id_pozo) VALUES ('{$lectura}', '{$tiempo}', '{$pozo['id']}')");
 
         if (!$result) {
@@ -128,10 +136,10 @@ if ($_POST['agregar_medida']) {
                 } else {
                     foreach ($medidas as $medida) {
                         $tiempo_arr = explode(' ', $medida['tiempo']);
-                        echo '<div class="accordion-item"><h4 class="list-group-item d-flex justify-content-between">';
+                        echo '<div class="accordion-item"><h5 class="list-group-item d-flex justify-content-between">';
                         echo '<a data-bs-toggle="collapse" href="#editar-medida-' . $medida['id'] . '" aria-expanded="false" aria-controls="agregar-medida">' . $medida['lectura'] . ' bar</a>';
                         echo '<a href="eliminar_medida.php?medida=' . $medida['id'] . '" class="btn btn-danger">Eliminar</a>';
-                        echo '</h4>';
+                        echo '</h5>';
                         echo '<div class="collapse p-4 collapse-medida" id="editar-medida-' . $medida['id'] . '" data-bs-parent="#accordionExample">';
                         echo '<form action="editar_medida.php" method="POST">';
                         echo '<input type="hidden" name="id" value="' . $medida['id'] . '" disabled>';
