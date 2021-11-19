@@ -92,7 +92,9 @@ if ($_POST['agregar_medida']) {
     }
 
     include('header.php');
+    var_dump($pozo);
 }
+
 ?>
 <div class="container">
     <?php
@@ -128,39 +130,39 @@ if ($_POST['agregar_medida']) {
         </form>
     </div>
     <div class="accordion" id="accordionExample">
-            <?php
-            $result = pg_query($con, "SELECT * FROM manometro_medidas WHERE id_pozo = '$pozo_id' ORDER BY tiempo");
+        <?php
+        $result = pg_query($con, "SELECT * FROM manometro_medidas WHERE id_pozo = '$pozo_id' ORDER BY tiempo");
 
-            if ($result) {
-                $medidas = pg_fetch_all($result, MYSQLI_ASSOC);
+        if ($result) {
+            $medidas = pg_fetch_all($result, MYSQLI_ASSOC);
 
 
-                if (!$medidas) {
-                    echo '<li class="list-group-item">No se han registrado medidas</li>';
-                } else {
-                    foreach ($medidas as $medida) {
-                        $tiempo_arr = explode(' ', $medida['tiempo']);
-                        echo '<div class="accordion-item"><h5 class="list-group-item d-flex justify-content-between">';
-                        echo '<a data-bs-toggle="collapse" href="#editar-medida-' . $medida['id'] . '" aria-expanded="false" aria-controls="agregar-medida">' . $medida['lectura'] . ' bar ('.$medida['tiempo'].')</a>';
-                        echo '<a href="eliminar_medida.php?medida=' . $medida['id'] . '" class="btn btn-danger">Eliminar</a>';
-                        echo '</h5>';
-                        echo '<div class="collapse p-4 collapse-medida" id="editar-medida-' . $medida['id'] . '" data-bs-parent="#accordionExample">';
-                        echo '<form action="editar_medida.php" method="POST">';
-                        echo '<input type="hidden" name="id" value="' . $medida['id'] . '" disabled>';
-                        echo '<label for="lectura" class="form-label">Lectura:</label>';
-                        echo '<input type="number" class="form-control" name="lectura" value="' . $medida['lectura'] . '" disabled />';
-                        echo '<label for="fecha" class="form-label">Fecha:</label>';
-                        echo ' <input class="form-control" type="date" name="fecha" disabled value="' . $tiempo_arr[0] . '">';
-                        echo '<label for="hora" class="form-label">Hora:</label>';
-                        echo ' <input class="form-control" type="time" name="hora" disabled value="' . $tiempo_arr[1] . '">';
-                        echo '<input type="submit" value="EDITAR" name="editar_medida" class="btn btn-success mt-1" disabled  />';
-                        echo '</div></div>';
-                    }
-                }
+            if (!$medidas) {
+                echo '<li class="list-group-item">No se han registrado medidas</li>';
             } else {
-                echo '<li class="list-group-item">' . pg_last_error($con) . '</li>';
+                foreach ($medidas as $medida) {
+                    $tiempo_arr = explode(' ', $medida['tiempo']);
+                    echo '<div class="accordion-item"><h5 class="list-group-item d-flex justify-content-between">';
+                    echo '<a data-bs-toggle="collapse" href="#editar-medida-' . $medida['id'] . '" aria-expanded="false" aria-controls="agregar-medida">' . $medida['lectura'] . ' bar (' . $medida['tiempo'] . ')</a>';
+                    echo '<a href="eliminar_medida.php?medida=' . $medida['id'] . '" class="btn btn-danger">Eliminar</a>';
+                    echo '</h5>';
+                    echo '<div class="collapse p-4 collapse-medida" id="editar-medida-' . $medida['id'] . '" data-bs-parent="#accordionExample">';
+                    echo '<form action="editar_medida.php" method="POST">';
+                    echo '<input type="hidden" name="id" value="' . $medida['id'] . '" disabled>';
+                    echo '<label for="lectura" class="form-label">Lectura:</label>';
+                    echo '<input type="number" class="form-control" name="lectura" value="' . $medida['lectura'] . '" disabled />';
+                    echo '<label for="fecha" class="form-label">Fecha:</label>';
+                    echo ' <input class="form-control" type="date" name="fecha" disabled value="' . $tiempo_arr[0] . '">';
+                    echo '<label for="hora" class="form-label">Hora:</label>';
+                    echo ' <input class="form-control" type="time" name="hora" disabled value="' . $tiempo_arr[1] . '">';
+                    echo '<input type="submit" value="EDITAR" name="editar_medida" class="btn btn-success mt-1" disabled  />';
+                    echo '</div></div>';
+                }
             }
-            ?>
+        } else {
+            echo '<li class="list-group-item">' . pg_last_error($con) . '</li>';
+        }
+        ?>
     </div>
 </div>
 
