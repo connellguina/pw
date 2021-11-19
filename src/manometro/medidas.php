@@ -151,7 +151,7 @@ if ($_POST['agregar_medida']) {
                         echo ' <input class="form-control" type="date" name="fecha" disabled value="' . $tiempo_arr[0] . '">';
                         echo '<label for="hora" class="form-label">Hora:</label>';
                         echo ' <input class="form-control" type="time" name="hora" disabled value="' . $tiempo_arr[1] . '">';
-                        echo '<input type="submit" value="EDITAR" name="editar-medida" class="btn btn-success mt-1" disabled  />';
+                        echo '<input type="submit" value="EDITAR" name="editar_medida" class="btn btn-success mt-1" disabled  />';
                         echo '</div></div>';
                     }
                 }

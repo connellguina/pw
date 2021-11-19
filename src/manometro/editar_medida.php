@@ -23,4 +23,8 @@ if ($_POST['editar_medida']) {
 
     header('Location: index.php');
     exit();
+} else {
+    $_SESSION['error'] = 'Medida inválida';
+    header('Location: index.php');
+    exit();
 }
