@@ -52,11 +52,11 @@ include('header.php'); ?>
                     echo '<li class="list-group-item">No se han registrado pozos</li>';
                 } else {
                     foreach ($pozos as $pozo) {
-                        echo '<div class="list-group-item d-flex justify-content-between">';
+                        echo '<h5 class="list-group-item d-flex justify-content-between">';
                         echo '<a data-bs-toggle="collapse" href="#editar-pozo-'.$pozo['id'].'" aria-expanded="false" aria-controls="agregar-pozo">'.$pozo['name'].'</a>';
                         echo '<a href="medidas.php?pozo='.$pozo['id'].'" class="btn btn-primary">Medidas</a>';
                         echo '<a href="eliminar_pozo.php?pozo='.$pozo['id'].'" class="btn btn-danger">Eliminar</a>';
-                        echo '</div>';
+                        echo '</h5>';
                         echo '<div class="collapse p-4 collapse-pozo" id="editar-pozo-'.$pozo['id'].'" data-bs-parent="#accordionExample">';
                         echo '<form action="editar_pozo.php" method="POST">';
                         echo '<input type="hidden" name="id" value="'.$pozo['id'].'" disabled>';
