@@ -127,7 +127,7 @@ if ($_POST['agregar_medida']) {
     </div>
     <div class="accordion" id="accordionExample">
             <?php
-            $result = pg_query($con, "SELECT * FROM manometro_medidas WHERE id_pozo = '$pozo_id'");
+            $result = pg_query($con, "SELECT * FROM manometro_medidas WHERE id_pozo = '$pozo_id' ORDER BY tiempo");
 
             if ($result) {
                 $medidas = pg_fetch_all($result, MYSQLI_ASSOC);
