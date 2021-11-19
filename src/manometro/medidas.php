@@ -145,8 +145,8 @@ if ($_POST['agregar_medida']) {
                         echo '<div class="collapse p-4 collapse-medida" id="editar-medida-' . $medida['id'] . '" data-bs-parent="#accordionExample">';
                         echo '<form action="editar_medida.php" method="POST">';
                         echo '<input type="hidden" name="id" value="' . $medida['id'] . '" disabled>';
-                        echo '<label for="nombre" class="form-label">Nombre:</label>';
-                        echo '<input type="number" class="form-control" name="nombre" value="' . $medida['lectura'] . '" disabled />';
+                        echo '<label for="lectura" class="form-label">Lectura:</label>';
+                        echo '<input type="number" class="form-control" name="lectura" value="' . $medida['lectura'] . '" disabled />';
                         echo '<label for="fecha" class="form-label">Fecha:</label>';
                         echo ' <input class="form-control" type="date" name="fecha" disabled value="' . $tiempo_arr[0] . '">';
                         echo '<label for="hora" class="form-label">Hora:</label>';
