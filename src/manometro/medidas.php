@@ -139,7 +139,7 @@ if ($_POST['agregar_medida']) {
                     foreach ($medidas as $medida) {
                         $tiempo_arr = explode(' ', $medida['tiempo']);
                         echo '<div class="accordion-item"><h5 class="list-group-item d-flex justify-content-between">';
-                        echo '<a data-bs-toggle="collapse" href="#editar-medida-' . $medida['id'] . '" aria-expanded="false" aria-controls="agregar-medida">' . $medida['lectura'] . ' bar</a>';
+                        echo '<a data-bs-toggle="collapse" href="#editar-medida-' . $medida['id'] . '" aria-expanded="false" aria-controls="agregar-medida">' . $medida['lectura'] . ' bar ('.$medida['tiempo'].')</a>';
                         echo '<a href="eliminar_medida.php?medida=' . $medida['id'] . '" class="btn btn-danger">Eliminar</a>';
                         echo '</h5>';
                         echo '<div class="collapse p-4 collapse-medida" id="editar-medida-' . $medida['id'] . '" data-bs-parent="#accordionExample">';
