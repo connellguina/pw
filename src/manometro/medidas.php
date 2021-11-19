@@ -21,11 +21,13 @@ if ($_POST['agregar_medida']) {
         exit();
     }
 
-    $result = pg_query($con, "SELECT * FROM manometro_pozos WHERE id = '{$_POST['id_pozo']}'");
+    $id_pozo = pg_escape_string($con, $_POST['id_pozo']);
+
+    $result = pg_query($con, "SELECT * FROM manometro_pozos WHERE id = '{$id_pozo}'");
 
     if ($result) {
-        $lectura = $_POST['lectura'];
-        $tiempo = "{$_POST['fecha']} {$_POST['hora']}:00";
+        $lectura = pg_escape_string($con, $_POST['lectura']);
+        $tiempo = pg_escape_string($con, "{$_POST['fecha']} {$_POST['hora']}:00");
         $pozo = pg_fetch_assoc($result);
 
         if (!$pozo) {

@@ -9,9 +9,9 @@ if (!$_SESSION['usuario']) {
 include('db.php');
 
 if ($_POST['editar_medida']) {
-    $id_medida = $_POST['id'];
-    $lectura = $_POST['lectura'];
-    $tiempo = "{$_POST['fecha']} {$_POST['hora']}:00";
+    $id_medida =  pg_escape_string($con, $_POST['id']);
+    $lectura =  pg_escape_string($con, $_POST['lectura']);
+    $tiempo =  pg_escape_string($con, "{$_POST['fecha']} {$_POST['hora']}:00");
 
     $result = pg_query($con, "UPDATE manometro_medidas SET lectura = '{$lectura}', tiempo = '{$tiempo}' WHERE id = '{$id_medida}'");
 

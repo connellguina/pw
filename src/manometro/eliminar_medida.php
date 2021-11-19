@@ -8,8 +8,9 @@ if (!$_SESSION['usuario']) {
 
 include('db.php');
 
-if ($_GET['medida']) {
-    $result = pg_query($con, "DELETE FROM manometros_medida WHERE id = {$_GET['editar_medida']}");
+if ($_GET['id']) {
+    $medida_id =  pg_escape_string($con, $_GET['medida']);
+    $result = pg_query($con, "DELETE FROM manometros_medida WHERE id = '{$medida_id}'");
 
     if (!$result) {
         $_SESSION['error'] = pg_last_error($con);
