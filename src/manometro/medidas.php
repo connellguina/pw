@@ -6,6 +6,8 @@ if (!$_SESSION['usuario']) {
     exit();
 }
 
+$pozo = null;
+
 include('db.php');
 
 if ($_POST['agregar_medida']) {
@@ -62,7 +64,7 @@ if ($_POST['agregar_medida']) {
     }
 } else {
 
-    $pozo_id = $_GET['pozo'];
+    $pozo_id = pg_escape_string($con, $_GET['pozo']);
 
     if (!is_numeric($pozo_id)) {
         $_SESSION['error'] = 'ID de pozo inválido';
