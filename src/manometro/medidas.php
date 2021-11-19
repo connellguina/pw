@@ -80,7 +80,7 @@ if ($_POST['agregar_medida']) {
         exit();
     }
 
-    $pozo = pg_fetch_all($result);
+    $pozo = pg_fetch_assoc($result);
 
     if (!$pozo) {
         $_SESSION['error'] = 'ID de pozo inválido';
