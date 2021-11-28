@@ -131,7 +131,7 @@ if ($_POST['agregar_medida']) {
     <canvas id="medidas_graph">
 
     </canvas>
-    <div class="accordion" id="accordionExample">
+    <div class="accordion my-4" id="accordionExample">
         <?php
         $result = pg_query($con, "SELECT * FROM manometro_medidas WHERE id_pozo = '$pozo_id' ORDER BY tiempo ASC");
 
