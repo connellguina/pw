@@ -170,53 +170,55 @@ if ($_POST['agregar_medida']) {
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js" integrity="sha256-7lWo7cjrrponRJcS6bc8isfsPDwSKoaYfGIHgSheQkk=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/luxon@^2"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@^1"></script>
-    <script>
-        $(document).ready(function() {
-            var ctx = document.getElementById('medidas_graph').getContext('2d');
-
-            var data = {
-                datasets: [{
-                    label: "<?php echo $pozo['name']; ?>",
-                    data: [
-                        <?php
-                        echo implode(', ', array_map(function ($medida) {
-                            return json_encode([
-                                'y' => (float)$medida['lectura'],
-                                'x' => $medida['tiempo']
-                            ]);
-                        }, $medidas));
-                        ?>
-                    ].map(function(value) {
-                        return {
-                            x: value.x,
-                            y: Date.parse(value.y)
-                        }
-                    }),
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }]
-            };
-
-            var config = {
-                type: 'line',
-                data: data,
-                options: {
-                    scales: {
-                        x: {
-                            type: 'time',
-                            time: {
-                                unit: 'day'
-                            }
-                        }
-                    },
-                    zone: "Venezuela/Caracas"
-                }
-            };
-
-            var chart = new Chart(ctx, config);
-        });
-    </script>
+    
 </div>
-
+<script>
+        document.onreadystatechange = function() {
+            if (document.readyState == 'complete') {
+                var ctx = document.getElementById('medidas_graph').getContext('2d')
+    
+                var data = {
+                    datasets: [{
+                        label: "<?php echo $pozo['name']; ?>",
+                        data: [
+                            <?php
+                            echo implode(', ', array_map(function ($medida) {
+                                return json_encode([
+                                    'y' => (float)$medida['lectura'],
+                                    'x' => $medida['tiempo']
+                                ]);
+                            }, $medidas));
+                            ?>
+                        ].map(function(value) {
+                            return {
+                                y: value.y,
+                                x: Date.parse(value.x)
+                            }
+                        }),
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                };
+    
+                var config = {
+                    type: 'line',
+                    data: data,
+                    options: {
+                        scales: {
+                            x: {
+                                type: 'time',
+                                time: {
+                                    unit: 'day'
+                                }
+                            }
+                        },
+                        zone: "Venezuela/Caracas"
+                    }
+                };
+    
+                var chart = new Chart(ctx, config);
+            }
+        }
+    </script>
 <?php include('footer.php'); ?>
