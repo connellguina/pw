@@ -171,50 +171,51 @@ if ($_POST['agregar_medida']) {
     <script src="https://cdn.jsdelivr.net/npm/luxon@^2"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@^1"></script>
     <script>
-        var ctx = document.getElementById('medidas_graph').getContext('2d');
+        $(document).ready(function() {
+            var ctx = document.getElementById('medidas_graph').getContext('2d');
 
-        var data = {
-            labels: ['aa'],
-            datasets: [{
-                label: "<?php echo $pozo['name']; ?>",
-                data: [
-                    <?php 
-                    echo implode(', ', array_map(function($medida) {
-                        return json_encode([
-                            'y' => (float)$medida['lectura'],
-                            'x' => $medida['tiempo']
-                        ]);
-                    }, $medidas));
-                    ?>
-                ].map(function(value) {
-                    return {
-                        x: value.x,
-                        y: Date.parse(value.y)
-                    }
-                }),
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            }]
-        };
-
-        var config = {
-            type: 'line',
-            data: data,
-            options: {
-                scales: {
-                    x: {
-                        type: 'time',
-                        time: {
-                            unit: 'day'
+            var data = {
+                datasets: [{
+                    label: "<?php echo $pozo['name']; ?>",
+                    data: [
+                        <?php
+                        echo implode(', ', array_map(function ($medida) {
+                            return json_encode([
+                                'y' => (float)$medida['lectura'],
+                                'x' => $medida['tiempo']
+                            ]);
+                        }, $medidas));
+                        ?>
+                    ].map(function(value) {
+                        return {
+                            x: value.x,
+                            y: Date.parse(value.y)
                         }
-                    }
-                },
-                zone: "Venezuela/Caracas"
-            }
-        };
+                    }),
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            };
 
-        var chart = new Chart(ctx, config);
+            var config = {
+                type: 'line',
+                data: data,
+                options: {
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'day'
+                            }
+                        }
+                    },
+                    zone: "Venezuela/Caracas"
+                }
+            };
+
+            var chart = new Chart(ctx, config);
+        });
     </script>
 </div>
 
