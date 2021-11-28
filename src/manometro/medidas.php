@@ -176,7 +176,7 @@ if ($_POST['agregar_medida']) {
         var data = {
             labels: ['aa'],
             datasets: [{
-                label: <?php echo $pozo['name']; ?>,
+                label: "<?php echo $pozo['name']; ?>",
                 data: [
                     <?php 
                     echo implode(', ', array_map(function($medida) {
