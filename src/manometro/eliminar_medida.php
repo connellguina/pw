@@ -10,15 +10,26 @@ include('db.php');
 
 if ($_GET['id']) {
     $medida_id =  pg_escape_string($con, $_GET['id']);
-    $result = pg_query($con, "DELETE FROM manometros_medida WHERE id = '{$medida_id}'");
 
-    if (!$result) {
-        $_SESSION['error'] = pg_last_error($con);
+    $result = pg_query($con, "SELECT * FROM manometro_medidas WHERE id = '$medida_id'");
+
+    $medida = pg_fetch_assoc($result);
+
+    if (!$medida) {
+        $_SESSION['error'] = "Ya hay una medida para $tiempo";
         header('Location: index.php');
         exit();
     }
 
-    header('Location: index.php');
+    $result = pg_query($con, "DELETE FROM manometros_medida WHERE id = '$medida_id'");
+
+    if (!$result) {
+        $_SESSION['error'] = pg_last_error($con);
+        header("Location: medidas.php?pozo=".$medida['id_pozo']);
+        exit();
+    }
+
+    header("Location: medidas.php?pozo=".$medida['id_pozo']);
     exit();
 } else {
     $_SESSION['error'] = 'Medida inválida';
