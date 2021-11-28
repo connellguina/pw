@@ -55,7 +55,7 @@ if ($_POST['agregar_medida']) {
         }
 
         $_SESSION['error'] = pg_last_error($con);
-        header("Location: medidas.php?pozo={$pozo['id']}");
+        header("Location: medidas.php?pozo=".$pozo['id']);
         exit();
     } else {
         $_SESSION['error'] = pg_last_error($con);
@@ -120,7 +120,7 @@ if ($_POST['agregar_medida']) {
         <form action="medidas.php" method="POST">
             <input type="hidden" name="id_pozo" value="<?php echo $pozo_id; ?>">
             <label for="lectura" class="form-label">Lectura:</label>
-            <input type="number" min="0" class="form-control" name="lectura" />
+            <input type="number" min="0" class="form-control" name="lectura" step=".01" />
             <label for="fecha" class="form-label">Fecha:</label>
             <input type="date" class="form-control" name="fecha">
             <label for="hora" class="form-label">Hora:</label>
@@ -146,7 +146,7 @@ if ($_POST['agregar_medida']) {
                     $tiempo_arr = explode(' ', $medida['tiempo']);
                     echo '<div class="accordion-item"><h5 class="list-group-item d-flex justify-content-between">';
                     echo '<a data-bs-toggle="collapse" href="#editar-medida-' . $medida['id'] . '" aria-expanded="false" aria-controls="agregar-medida">' . $medida['lectura'] . ' bar (' . $medida['tiempo'] . ')</a>';
-                    echo '<a href="eliminar_medida.php?medida=' . $medida['id'] . '" class="btn btn-danger">Eliminar</a>';
+                    echo '<a href="eliminar_medida.php?id=' . $medida['id'] . '" class="btn btn-danger">Eliminar</a>';
                     echo '</h5>';
                     echo '<div class="collapse p-4 collapse-medida" id="editar-medida-' . $medida['id'] . '" data-bs-parent="#accordionExample">';
                     echo '<form action="editar_medida.php" method="POST">';

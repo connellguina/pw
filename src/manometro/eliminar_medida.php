@@ -9,7 +9,7 @@ if (!$_SESSION['usuario']) {
 include('db.php');
 
 if ($_GET['id']) {
-    $medida_id =  pg_escape_string($con, $_GET['medida']);
+    $medida_id =  pg_escape_string($con, $_GET['id']);
     $result = pg_query($con, "DELETE FROM manometros_medida WHERE id = '{$medida_id}'");
 
     if (!$result) {
