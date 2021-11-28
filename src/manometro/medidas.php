@@ -25,7 +25,7 @@ if ($_POST['agregar_medida']) {
 
     $id_pozo = pg_escape_string($con, $_POST['id_pozo']);
 
-    $result = pg_query($con, "SELECT * FROM manometro_pozos WHERE id = '{$id_pozo}' ORDER BY tiempo ASC");
+    $result = pg_query($con, "SELECT * FROM manometro_pozos WHERE id = '{$id_pozo}'");
 
     if ($result) {
         $lectura = pg_escape_string($con, $_POST['lectura']);
@@ -133,7 +133,7 @@ if ($_POST['agregar_medida']) {
     </div>
     <div class="accordion" id="accordionExample">
         <?php
-        $result = pg_query($con, "SELECT * FROM manometro_medidas WHERE id_pozo = '$pozo_id' ORDER BY tiempo");
+        $result = pg_query($con, "SELECT * FROM manometro_medidas WHERE id_pozo = '$pozo_id' ORDER BY tiempo ASC");
 
         if ($result) {
             $medidas = pg_fetch_all($result, MYSQLI_ASSOC);
