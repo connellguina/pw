@@ -186,7 +186,12 @@ if ($_POST['agregar_medida']) {
                         ]);
                     }, $medidas));
                     ?>
-                ],
+                ].map(function(value) {
+                    return {
+                        x: value.x,
+                        y: Date.parse(value.y)
+                    }
+                }),
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1
