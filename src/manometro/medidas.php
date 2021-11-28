@@ -109,16 +109,13 @@ if ($_POST['agregar_medida']) {
     }
     ?>
     <div class="justify-content-between d-flex">
-        <h3>Medidas del pozo <?php echo $pozo['name']; ?></h3>
+        <h3>Medidas del pozo "<?php echo $pozo['name']; ?>"</h3>
         <div>
             <a class="btn btn-primary" data-bs-toggle="collapse" href="#agregar-medida" aria-expanded="false" aria-controls="agregar-pozo">
                 Agregar medida
             </a>
         </div>
     </div>
-    <canvas id="medidas_graph">
-
-    </canvas>
     <div class="collapse p-2" id="agregar-medida">
         <form action="medidas.php" method="POST">
             <input type="hidden" name="id_pozo" value="<?php echo $pozo_id; ?>">
@@ -131,6 +128,9 @@ if ($_POST['agregar_medida']) {
             <input type="submit" value="AGREGAR MEDIDA" name="agregar_medida" class="btn btn-success mt-1" />
         </form>
     </div>
+    <canvas id="medidas_graph">
+
+    </canvas>
     <div class="accordion" id="accordionExample">
         <?php
         $result = pg_query($con, "SELECT * FROM manometro_medidas WHERE id_pozo = '$pozo_id' ORDER BY tiempo ASC");
