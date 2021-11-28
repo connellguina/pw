@@ -25,7 +25,7 @@ if ($_POST['agregar_medida']) {
 
     $id_pozo = pg_escape_string($con, $_POST['id_pozo']);
 
-    $result = pg_query($con, "SELECT * FROM manometro_pozos WHERE id = '{$id_pozo}'");
+    $result = pg_query($con, "SELECT * FROM manometro_pozos WHERE id = '{$id_pozo}' ORDER BY tiempo ASC");
 
     if ($result) {
         $lectura = pg_escape_string($con, $_POST['lectura']);
