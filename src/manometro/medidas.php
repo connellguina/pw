@@ -116,6 +116,9 @@ if ($_POST['agregar_medida']) {
             </a>
         </div>
     </div>
+    <canvas id="medidas_graph">
+
+    </canvas>
     <div class="collapse p-2" id="agregar-medida">
         <form action="medidas.php" method="POST">
             <input type="hidden" name="id_pozo" value="<?php echo $pozo_id; ?>">
@@ -163,6 +166,31 @@ if ($_POST['agregar_medida']) {
         }
         ?>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js" integrity="sha256-7lWo7cjrrponRJcS6bc8isfsPDwSKoaYfGIHgSheQkk=" crossorigin="anonymous"></script>
+    <script>
+        var ctx = document.getElementById('medidas_graph').getContext('2d');
+
+
+        var labels = Utils.months({count: 7});
+        var data = {
+        labels: labels,
+        datasets: [{
+            label: 'My First Dataset',
+            data: [<?php echo implode(',', array_column($medida, 'lectura'));?>],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }]
+        };
+
+        var config = {
+            type: 'line',
+            data: data,
+        };
+
+        var chart = new Chart(ctx, config);
+    </script>
 </div>
 
 <?php include('footer.php'); ?>
