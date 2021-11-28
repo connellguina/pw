@@ -179,9 +179,9 @@ if ($_POST['agregar_medida']) {
                 label: <?php echo $pozo['name']; ?>,
                 data: [
                     <?php 
-                    echo implode(',', array_map(function($medida) {
+                    echo implode(', ', array_map(function($medida) {
                         return json_encode([
-                            'y' => $medida['lectura'],
+                            'y' => (float)$medida['lectura'],
                             'x' => $medida['tiempo']
                         ]);
                     }, $medidas));
