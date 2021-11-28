@@ -14,8 +14,12 @@
         <a class="navbar-brand" href="index.php">Super Manómetro Bros</a>
         <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
         <div class="collapse navbar-collapse" id="collapsibleNavId">
-            <ul class="navbar-nav me-auto mt-2 mt-lg-0">
-                <?php if (!$_SESSION['usuario']) { ?>
+            <ul class="navbar-nav me-auto mt-2 mt-lg-0 justify-content-end">
+                <?php if ($_SESSION['usuario']) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">Log out</a>
+                    </li>
+                <?php } else { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="login.php">Log In</a>
                     </li>
