@@ -172,9 +172,8 @@ if ($_POST['agregar_medida']) {
         var ctx = document.getElementById('medidas_graph').getContext('2d');
 
 
-        var labels = Utils.months({count: 7});
         var data = {
-        labels: labels,
+        labels: ['aa'],
         datasets: [{
             label: 'My First Dataset',
             data: [<?php echo implode(',', array_column($medida, 'lectura'));?>],
