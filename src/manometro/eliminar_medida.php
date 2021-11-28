@@ -21,7 +21,7 @@ if ($_GET['id']) {
         exit();
     }
 
-    $result = pg_query($con, "DELETE FROM manometros_medida WHERE id = '$medida_id'");
+    $result = pg_query($con, "DELETE FROM manometros_medidas WHERE id = '$medida_id'");
 
     if (!$result) {
         $_SESSION['error'] = pg_last_error($con);
