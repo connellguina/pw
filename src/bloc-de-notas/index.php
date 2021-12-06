@@ -100,7 +100,6 @@ session_start();
                         <input type="text" name="filename" placeholder="Filename" class="form-control">
                         <input type="hidden" name="contents">
                         <br>
-                        <textarea name="body" cols="30" rows="10" class="form-control"></textarea><br>
                         <input type="submit" name="save-file" class="btn btn-primary" value="Save file">
                     </form>
                 </div>
