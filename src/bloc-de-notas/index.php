@@ -49,18 +49,22 @@ session_start();
                         return $files;
                     }
 
+                    $place = __DIR__ . "/bloc-de-notas/archivos/*";
+
                     $files = rglob(__DIR__ . "/bloc-de-notas/archivos/*");
+
+                    var_dump($place)
                     ?>
                     <?php
                     foreach ($files as $file) {
                         if (is_dir($file)) {
-                            echo "<li>" . str_replace(__DIR__ . '/archivos/', '', $file) .
-                                "<a href=\"del-dir.php?dir=" . str_replace(__DIR__ . '/archivos/', '', $file) . "\">DELETE</a>" .
+                            echo "<li>" . str_replace(__DIR__ . '/bloc-de-notas/archivos/', '', $file) .
+                                "<a href=\"del-dir.php?dir=" . str_replace(__DIR__ . '/bloc-de-notas/archivos/', '', $file) . "\">DELETE</a>" .
                                 "</li>";
                         } else {
                             $html = "<li>" . "<a href=\"index.php?file=" . urlencode(str_replace(__DIR__ . '/archivos/', '', $file)) .
-                                "\">" . str_replace(__DIR__ . '/archivos/', '', $file) . "</a>" .
-                                "<a href=\"del-file.php?file=" . urlencode(str_replace(__DIR__ . '/archivos/', '', $file)) . "\">DELETE</a>" .
+                                "\">" . str_replace(__DIR__ . '/bloc-de-notas/archivos/', '', $file) . "</a>" .
+                                "<a href=\"del-file.php?file=" . urlencode(str_replace(__DIR__ . '/bloc-de-notas/archivos/', '', $file)) . "\">DELETE</a>" .
                                 "</li>";
                         }
                     }
