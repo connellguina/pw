@@ -4,7 +4,7 @@ session_start();
 
 if ($_POST['save-file']) {
     if (!empty($_POST['filename'])) {
-        if ($file = fopen("archivos/{$_POST['filename']}".'txt', 'w')) {
+        if ($file = fopen("archivos/{$_POST['filename']}".'.txt', 'w')) {
             fwrite($file, $_POST['contents']);
             fclose($file);
         } else {
