@@ -96,13 +96,12 @@ session_start();
                 </div>
                 <div class="modal-body">
                     <form method="post" action="save-file.php">
-                        <div class="input-group">
-                            <label for="filename">Filename</label>
-                            <input type="text" name="filename" placeholder="Filename" class="form-control">
-                            <input type="hidden" name="contents">
-                        </div>
-                        <textarea name="body" cols="30" rows="10" class="form-control"></textarea>
-                        <input type="submit" name="save" class="btn btn-primary" value="Save file">
+                        <label for="filename" class="form-label">Filename</label>
+                        <input type="text" name="filename" placeholder="Filename" class="form-control">
+                        <input type="hidden" name="contents">
+                        <br>
+                        <textarea name="body" cols="30" rows="10" class="form-control"></textarea><br>
+                        <input type="submit" name="save-file" class="btn btn-primary" value="Save file">
                     </form>
                 </div>
             </div>
@@ -119,12 +118,9 @@ session_start();
                 </div>
                 <div class="modal-body">
                     <form method="post" action="save-dir.php">
-                        <div class="input-group">
-                            <label for="dirname">Dirname</label>
+                            <label for="dirname" class="form-label">Dirname</label>
                             <input type="text" name="dirname" placeholder="dirname" class="form-control">
-                        </div>
-                        <textarea name="body" cols="30" rows="10" class="form-control"></textarea>
-                        <input type="submit" name="save" class="btn btn-primary" value="Save directory">
+                        <input type="submit" name="save-dir" class="btn btn-primary" value="Save directory">
                     </form>
                 </div>
             </div>
