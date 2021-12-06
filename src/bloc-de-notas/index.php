@@ -60,7 +60,7 @@ session_start();
                         } else {
                             echo "<li>" . "<a href=\"index.php?file=" . urlencode(str_replace(__DIR__ . '/archivos/', '', $file)) .
                                 "\">" . str_replace(__DIR__ . "/archivos/", '', $file) . "</a>" .
-                                "<a href=\"del-file.php?file=" . urlencode(str_replace(__DIR__ . '/archivos/', '', $file)) . "\">DELETE</a>" .
+                                "<a href=\"del-file.php?filename=" . urlencode(str_replace(__DIR__ . '/archivos/', '', $file)) . "\">DELETE</a>" .
                                 "</li>";
                         }
                     }
@@ -71,13 +71,11 @@ session_start();
                 <form method="post" action="save-file.php">
                     <?php
                     if ($filename = urldecode($_GET['filename'])) {
-                        $file_contents = file_get_contents(__DIR__."/archivos/$filename.txt");
+                        $file_contents = file_get_contents(__DIR__ . "/archivos/$filename.txt");
                     }
                     ?>
-                    <div class="input-group">
-                        <label for="filename">Filename</label>
-                        <input type="text" name="filename" placeholder="Filename" class="form-control" value="<?= $filename ?>" readonly>
-                    </div>
+                    <label for="filename">Filename</label>
+                    <input type="text" name="filename" placeholder="Filename" class="form-control" value="<?= $filename ?>" readonly>
                     <textarea class="form-control" rows="10" cols="20" name="contents"><?= $file_contents ?></textarea>
                     <input type="submit" name="save" class="btn btn-primary" value="Save file">
                 </form>
@@ -117,8 +115,8 @@ session_start();
                 </div>
                 <div class="modal-body">
                     <form method="post" action="save-dir.php">
-                            <label for="dirname" class="form-label">Dirname</label>
-                            <input type="text" name="dirname" placeholder="dirname" class="form-control">
+                        <label for="dirname" class="form-label">Dirname</label>
+                        <input type="text" name="dirname" placeholder="dirname" class="form-control">
                         <input type="submit" name="save-dir" class="btn btn-primary" value="Save directory">
                     </form>
                 </div>

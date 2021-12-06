@@ -15,5 +15,5 @@ if ($_POST['save-file']) {
     }
 }
 
-header("Location: index.php?file={$_POST['filename']}");
+header("Location: index.php?filename={$_POST['filename']}");
 die;
