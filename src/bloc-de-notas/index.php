@@ -1,28 +1,141 @@
-<?php 
+<?php
 session_start();
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloc de notas</title>
 </head>
+
 <body>
-    <form method="post" action="save-file.php">
-        <div class="input-group">
-            <label for="filename">Filename</label>
-            <input type="text" name="filename" placeholder="Filename" class="form-control">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Textpad</a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#create-file-modal">Create file</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#create-dir-modal">Create directory</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <textarea name="body" cols="30" rows="10" class="form-control"></textarea>
-        <input type="submit" name="save" class="btn btn-primary" value="Save file">
-    </form>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <form method="post" action="save-file.php">
+                    <?php
+                    if ($filename = urldecode($_GET['filename'])) {
+                        $file_contents = file_get_contents("archivos/$filename.txt");
+                    }
+                    ?>
+                    <div class="input-group">
+                        <label for="filename">Filename</label>
+                        <input type="text" name="filename" placeholder="Filename" class="form-control" value="<?= $filename ?>" readonly>
+                        <textarea class="form-control" rows="10" cols="20" name="contents"><?= $file_contents ?></textarea>
+                    </div>
+                    <textarea name="body" cols="30" rows="10" class="form-control"></textarea>
+                    <input type="submit" name="save" class="btn btn-primary" value="Save file">
+                </form>
+            </div>
+
+            <div class="col-sm-12 col-md-8">
+                <ul>
+                    <?php
+
+                    // Does not support flag GLOB_BRACE
+                    function rglob($pattern, $flags = 0)
+                    {
+                        $files = glob($pattern, $flags);
+                        foreach (glob(dirname($pattern) . '/*', GLOB_ONLYDIR | GLOB_NOSORT) as $dir) {
+                            $files = array_merge($files, rglob($dir . '/' . basename($pattern), $flags));
+                        }
+                        return $files;
+                    }
+
+                    $files = rglob(__DIR__ . "/archivos/*");
+                    ?>
+                    <?php
+                    foreach ($files as $file) {
+                        if (is_dir($file)) {
+                            echo "<li>" . str_replace(__DIR__ . '/archivos/', '', $file) . 
+                                "<a href=\"del-dir.php?dir=".str_replace(__DIR__ . '/archivos/', '', $file)."\">DELETE</a>".
+                            "</li>";
+                        } else {
+                            $html = "<li>" . "<a href=\"index.php?file=". urlencode(str_replace(__DIR__ . '/archivos/', '', $file)).
+                            "\">". str_replace(__DIR__ . '/archivos/', '', $file) . "</a>".
+                            "<a href=\"del-file.php?file=".urlencode(str_replace(__DIR__ . '/archivos/', '', $file))."\">DELETE</a>".
+                            "</li>";
+                        }
+                    }
+                    ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="create-file-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New file</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="save-file.php">
+                        <div class="input-group">
+                            <label for="filename">Filename</label>
+                            <input type="text" name="filename" placeholder="Filename" class="form-control">
+                            <input type="hidden" name="contents">
+                        </div>
+                        <textarea name="body" cols="30" rows="10" class="form-control"></textarea>
+                        <input type="submit" name="save" class="btn btn-primary" value="Save file">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="create-dir-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New directory</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="save-dir.php">
+                        <div class="input-group">
+                            <label for="dirname">Dirname</label>
+                            <input type="text" name="dirname" placeholder="dirname" class="form-control">
+                        </div>
+                        <textarea name="body" cols="30" rows="10" class="form-control"></textarea>
+                        <input type="submit" name="save" class="btn btn-primary" value="Save directory">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
+
 </html>
-<?php 
+<?php
 
 session_destroy();
 ?>
