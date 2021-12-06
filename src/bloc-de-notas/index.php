@@ -50,6 +50,7 @@ session_start();
                     }
 
                     $files = rglob(__DIR__ . "/archivos/*");
+                    var_dump($files);
                     ?>
                     <?php
                     foreach ($files as $file) {
