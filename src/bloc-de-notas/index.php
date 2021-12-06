@@ -71,7 +71,7 @@ session_start();
                 <form method="post" action="save-file.php">
                     <?php
                     if ($filename = urldecode($_GET['filename'])) {
-                        $file_contents = file_get_contents(__DIR__ . "/archivos/$filename.txt");
+                        $file_contents = file_get_contents(__DIR__ . "/archivos/". str_replace('.txt', '', $filename). '.txt');
                     }
                     ?>
                     <label for="filename">Filename</label>
