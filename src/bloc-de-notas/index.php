@@ -36,23 +36,6 @@ session_start();
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-md-4">
-                <form method="post" action="save-file.php">
-                    <?php
-                    if ($filename = urldecode($_GET['filename'])) {
-                        $file_contents = file_get_contents("archivos/$filename.txt");
-                    }
-                    ?>
-                    <div class="input-group">
-                        <label for="filename">Filename</label>
-                        <input type="text" name="filename" placeholder="Filename" class="form-control" value="<?= $filename ?>" readonly>
-                        <textarea class="form-control" rows="10" cols="20" name="contents"><?= $file_contents ?></textarea>
-                    </div>
-                    <textarea name="body" cols="30" rows="10" class="form-control"></textarea>
-                    <input type="submit" name="save" class="btn btn-primary" value="Save file">
-                </form>
-            </div>
-
-            <div class="col-sm-12 col-md-8">
                 <ul>
                     <?php
 
@@ -83,6 +66,21 @@ session_start();
                     }
                     ?>
                 </ul>
+            </div>
+            <div class="col-sm-12 col-md-8">
+                <form method="post" action="save-file.php">
+                    <?php
+                    if ($filename = urldecode($_GET['filename'])) {
+                        $file_contents = file_get_contents("archivos/$filename.txt");
+                    }
+                    ?>
+                    <div class="input-group">
+                        <label for="filename">Filename</label>
+                        <input type="text" name="filename" placeholder="Filename" class="form-control" value="<?= $filename ?>" readonly>
+                    </div>
+                    <textarea class="form-control" rows="10" cols="20" name="contents"><?= $file_contents ?></textarea>
+                    <input type="submit" name="save" class="btn btn-primary" value="Save file">
+                </form>
             </div>
         </div>
     </div>
