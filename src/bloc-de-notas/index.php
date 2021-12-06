@@ -49,7 +49,7 @@ session_start();
                         return $files;
                     }
 
-                    $files = rglob(__DIR__ . "/archivos/*");
+                    $files = rglob(__DIR__ . "/bloc-de-notas/archivos/*");
                     ?>
                     <?php
                     foreach ($files as $file) {
