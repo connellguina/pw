@@ -49,17 +49,17 @@ session_start();
                         return $files;
                     }
 
-                    $files = rglob(__DIR__ . "\/archivos\/*");
+                    $files = rglob(__DIR__ . "/archivos/*");
                     ?>
                     <?php
                     foreach ($files as $file) {
                         if (is_dir($file)) {
-                            echo "<li>" . str_replace(__DIR__ . "\/archivos\/", '', $file) .
+                            echo "<li>" . str_replace(__DIR__ . "/archivos/", '', $file) .
                                 "<a href=\"del-dir.php?dir=" . str_replace(__DIR__ . '\/archivos/', '', $file) . "\">DELETE</a>" .
                                 "</li>";
                         } else {
                             echo "<li>" . "<a href=\"index.php?file=" . urlencode(str_replace(__DIR__ . '/archivos/', '', $file)) .
-                                "\">" . str_replace(__DIR__ . "\/archivos\/", '', $file) . "</a>" .
+                                "\">" . str_replace(__DIR__ . "/archivos/", '', $file) . "</a>" .
                                 "<a href=\"del-file.php?file=" . urlencode(str_replace(__DIR__ . '/archivos/', '', $file)) . "\">DELETE</a>" .
                                 "</li>";
                         }
@@ -71,7 +71,7 @@ session_start();
                 <form method="post" action="save-file.php">
                     <?php
                     if ($filename = urldecode($_GET['filename'])) {
-                        $file_contents = file_get_contents(__DIR__."\/archivos\/$filename.txt");
+                        $file_contents = file_get_contents(__DIR__."/archivos/$filename.txt");
                     }
                     ?>
                     <div class="input-group">
