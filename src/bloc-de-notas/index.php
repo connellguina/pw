@@ -59,7 +59,7 @@ session_start();
                                 "<a href=\"del-dir.php?dir=" . str_replace(__DIR__ . '\/archivos/', '', $file) . "\">DELETE</a>" .
                                 "</li>";
                         } else {
-                            echo "<li>" . "<a href=\"index.php?file=" . urlencode(str_replace(__DIR__ . '/archivos/', '', 
+                            echo "<li>" . "<a href=\"index.php?filename=" . urlencode(str_replace(__DIR__ . '/archivos/', '', 
                                 str_replace('.txt', '', $file))) .
                                 "\">" . str_replace(__DIR__ . "/archivos/", '', $file) . "</a>" .
                                 "<a href=\"del-file.php?filename=" . urlencode(str_replace(__DIR__ . '/archivos/', '', str_replace('.txt', '', $file))) . "\">DELETE</a>" .
@@ -73,7 +73,8 @@ session_start();
                 <form method="post" action="save-file.php">
                     <?php
                     if ($filename = urldecode($_GET['filename'])) {
-                        $file_contents = file_get_contents(__DIR__ . "/archivos/". str_replace('.txt', '', $filename). '.txt');
+                        $filename_normal = str_replace('.txt', '', $filename);
+                        $file_contents = file_get_contents(__DIR__ . "/archivos/$filename_normal.txt");
                     }
                     ?>
                     <label for="filename">Filename</label>
