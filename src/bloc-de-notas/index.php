@@ -75,14 +75,12 @@ session_start();
                     if ($filename = urldecode($_GET['filename'])) {
                         $filename_normal = str_replace('.txt', '', $filename);
                         $file_contents = file_get_contents(__DIR__ . "/archivos/$filename_normal.txt");
-
-                        var_dump($file_contents);
                     }
                     ?>
                     <label for="filename">Filename</label>
                     <input type="text" name="filename" placeholder="Filename" class="form-control" value="<?= $filename ?>" readonly>
                     <textarea class="form-control" rows="10" cols="20" name="contents"><?= $file_contents ?></textarea>
-                    <input type="submit" name="save" class="btn btn-primary" value="Save file">
+                    <input type="submit" name="save-file" class="btn btn-primary" value="Save file">
                 </form>
             </div>
         </div>
