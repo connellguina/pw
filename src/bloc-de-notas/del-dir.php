@@ -1,9 +1,10 @@
 <?php
 session_start();
 
-if (!rmdir(__DIR__."/archivos/".urldecode($_GET['dir']))) {
+$decoded_dir = urldecode($_GET['dir']);
+
+if (!rmdir(__DIR__."/archivos/$decoded_dir")) {
     $_SESSION['mensaje'] = 'Unable to erase directory';
-    header('Location: index.php');
 }
 
 header("Location: index.php");

@@ -35,7 +35,7 @@ session_start();
     </nav>
     <div class="container">
         <div class="row">
-        <h4><?php $_SESSION['msg'] ?  $_SESSION['msg'] : '' ?> </h4>
+        <h4><?php $_SESSION['mensaje'] ?  $_SESSION['mensaje'] : '' ?> </h4>
             <div class="col-sm-12 col-md-4">
                 <ul>
                     <?php
