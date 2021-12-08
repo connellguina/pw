@@ -75,6 +75,8 @@ session_start();
                     if ($filename = urldecode($_GET['filename'])) {
                         $filename_normal = str_replace('.txt', '', $filename);
                         $file_contents = file_get_contents(__DIR__ . "/archivos/$filename_normal.txt");
+
+                        var_dump($file_contents);
                     }
                     ?>
                     <label for="filename">Filename</label>
