@@ -56,7 +56,7 @@ session_start();
                     foreach ($files as $file) {
                         if (is_dir($file)) {
                             echo "<li>" . str_replace(__DIR__ . "/archivos/", '', $file) .
-                                "<a href=\"del-dir.php?dir=" . str_replace(__DIR__ . '\/archivos/', '', $file) . "\">DELETE</a>" .
+                                "<a href=\"del-dir.php?dir=" . str_replace(__DIR__ . '/archivos/', '', $file) . "\">DELETE</a>" .
                                 "</li>";
                         } else {
                             echo "<li>" . "<a href=\"index.php?filename=" . urlencode(str_replace(__DIR__ . '/archivos/', '', 
