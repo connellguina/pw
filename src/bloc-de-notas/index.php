@@ -35,6 +35,7 @@ session_start();
     </nav>
     <div class="container">
         <div class="row">
+        <h4><?php $_SESSION['msg'] ?  $_SESSION['msg'] : '' ?> </h4>
             <div class="col-sm-12 col-md-4">
                 <ul>
                     <?php
@@ -58,9 +59,10 @@ session_start();
                                 "<a href=\"del-dir.php?dir=" . str_replace(__DIR__ . '\/archivos/', '', $file) . "\">DELETE</a>" .
                                 "</li>";
                         } else {
-                            echo "<li>" . "<a href=\"index.php?file=" . urlencode(str_replace(__DIR__ . '/archivos/', '', $file)) .
+                            echo "<li>" . "<a href=\"index.php?file=" . urlencode(str_replace(__DIR__ . '/archivos/', '', 
+                                str_replace('.txt', '', $file))) .
                                 "\">" . str_replace(__DIR__ . "/archivos/", '', $file) . "</a>" .
-                                "<a href=\"del-file.php?filename=" . urlencode(str_replace(__DIR__ . '/archivos/', '', $file)) . "\">DELETE</a>" .
+                                "<a href=\"del-file.php?filename=" . urlencode(str_replace(__DIR__ . '/archivos/', '', str_replace('.txt', '', $file))) . "\">DELETE</a>" .
                                 "</li>";
                         }
                     }
