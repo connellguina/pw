@@ -19,14 +19,14 @@ if (isset($_POST['add-patient'])) {
     exit;
 } else if (isset($_POST['add-exam'])) {
 
-    $_POST['type'] = mysqli_real_escape_string($db, $_POST['type']);
-    $_POST['date'] = mysqli_real_escape_string($db, $_POST['date']);
-    $_POST['patient'] = mysqli_real_escape_string($db, $_POST['patient']);
-    $_POST['procedure'] = mysqli_real_escape_string($db, $_POST['procedure']);
+    $type = mysqli_real_escape_string($db, $_POST['type']);
+    $date = mysqli_real_escape_string($db, $_POST['date']);
+    $patient = mysqli_real_escape_string($db, $_POST['patient']);
+    $procedure = mysqli_real_escape_string($db, $_POST['procedure']);
 
     $result = mysqli_query(
         $db,
-        "INSERT INTO exams (type, date, procedure, patient) VALUES ('{$_POST['type']}', '{$_POST['date']}', '{$_POST['procedure']}', '{$_POST['patient']}')"
+        "INSERT INTO exams (`type`, `date`, `procedure`, `patient`) VALUES ('$type', '$date', '$procedure', '$patient')"
     );
 
     if (!$result) {
@@ -41,7 +41,7 @@ if (isset($_POST['add-patient'])) {
 
     $result = mysqli_query(
         $db,
-        "UPDATE exams SET results = '{$_POST['results']}' WHERE id = '{$_POST['exam_id']}'"
+        "UPDATE exams SET results = '{$_POST['results']}', status = 'done' WHERE id = '{$_POST['exam_id']}'"
     );
 
     if (!$result) {
@@ -50,7 +50,11 @@ if (isset($_POST['add-patient'])) {
         exit;
     }
 
-    header('Location: send_email.php?id='.$_POST['exam_id']);
+    header('Location: send_mail.php?exam='.$_POST['exam_id']);
+    exit;
+} else if (isset($_POST['logout'])) {
+    session_destroy();
+    header('Location: login.php');
     exit;
 }
 
@@ -64,7 +68,7 @@ if (isset($_POST['add-patient'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Lab</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="js/script.js"></script>
+    
 </head>
 
 <body>
@@ -73,7 +77,7 @@ if (isset($_POST['add-patient'])) {
     <?php
     $exams = null;
 
-    if ($resultado = mysqli_query($db, "SELECT e.*, p.name AS patient_name, p.dni AS patient_dni FROM exams e JOIN patient p ON e.patient = p.id")) {
+    if ($resultado = mysqli_query($db, "SELECT e.*, p.name AS patient_name, p.dni AS patient_dni FROM exams e JOIN patients p ON e.patient = p.id")) {
         $exams = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
     } else {
         exit(mysqli_error($db));
@@ -89,12 +93,16 @@ if (isset($_POST['add-patient'])) {
     <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalpatient">
         New patient
     </button>
+    
+    <form action="index.php" method="post">
+        <input name="logout" class="btn btn-danger" type="submit" value="Log out">
+    </form>
 
     <h3>Examenes:</h3>
 
     <?php
 
-    if ($_SESSION['msg']) {
+    if (isset($_SESSION['msg'])) {
         echo "<div class='alert alert-light' role='alert'>{$_SESSION['msg']}</div>";
         unset($_SESSION['msg']);
     }
@@ -102,12 +110,12 @@ if (isset($_POST['add-patient'])) {
     ?>
     <ul class="list-group">
         <?php foreach ($exams as $exam) {
-            echo "<li class='list-group-item'>{$exam['patient_dni']} {$exam['patient_name']}({$exam['date']}}";
+            echo "<li class='list-group-item'>{$exam['patient_dni']} {$exam['patient_name']}({$exam['date']})<br>";
 
             if ($exam['status'] === 'done') {
-                echo "<a href='send_email.php?exam={$exam['id']}'>Send results</a>";
-            } else {
-                echo "<a href='#' data-bs-toggle='modal' data-bs-target='modalExamResults'>Register results</a>";
+                echo "<a href='send_mail.php?exam={$exam['id']}'>Send results</a>";
+            } else if ($user['role'] === 'doctor'){
+                echo "<a href='#' data-bs-toggle='modal' data-bs-src='{$exam['id']}' data-bs-target='#modalExamResults'>Register results</a>";
             }
 
             echo '</li>';
@@ -151,7 +159,12 @@ if (isset($_POST['add-patient'])) {
                         <label for="">Date:</label>
                         <input type="datetime-local" name="date" class="form-control" required>
                         <label>Patient</label>
-                        <select name="patient" required>
+                        <select name="patient" class="form-select" required>
+                            <?php
+                            $result = mysqli_query($db, 'SELECT * FROM patients');
+                            
+                            $patients = mysqli_fetch_all($result, MYSQLI_ASSOC)
+                            ?>
                             <option value="">Select patient</option>
                             <?php foreach ($patients as $patient) {
                                 echo "<option value='{$patient['id']}'>{$patient['name']} DNI. {$patient['dni']}</option>";
@@ -185,6 +198,7 @@ if (isset($_POST['add-patient'])) {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
 
 </body>
 

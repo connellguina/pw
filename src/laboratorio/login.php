@@ -1,11 +1,12 @@
 <?php
+include 'db.php';
 include 'only-not-user.php';
 
-if ($_POST['login']) {
+if (isset($_POST['login'])) {
     $username = mysqli_real_escape_string($db, $_POST['username']);
     $password = $_POST['password'];
 
-    if (!$username || !$password || !$role) {
+    if (!$username || !$password) {
         $_SESSION['msg'] = 'INVALID DATA';
         header('Location: signup.php');
         exit;
@@ -13,7 +14,7 @@ if ($_POST['login']) {
         if ($resultado = mysqli_query($db, "SELECT * FROM  users WHERE username = '$username'")) {
             $user = mysqli_fetch_assoc($resultado);
 
-            if (!password_verify($passwrod, $user['password'])) {
+            if (!password_verify($password, $user['password'])) {
                 $_SESSION['msg'] = 'USUARIO O CONTRASEÑA INVÁLIDA';
                 header('Location: login.php');
             } else {
@@ -40,19 +41,23 @@ if ($_POST['login']) {
 </head>
 
 <body>
-    <form action="login.php" method="post">
+    <div class="container">
+        <h3>Login</h3>
+        <form action="login.php" method="post">
         <?php
 
-        if ($_SESSION['msg']) {
+        if (isset($_SESSION['msg'])) {
             echo "<div class='alert alert-light' role='alert'>{$_SESSION['msg']}</div>";
         }
         
         ?>
         <input type="text" class="form-control" name="username" placeholder="Username" required>
         <input type="password" name="password" class="form-control" placeholder="Password" required>
-
+        <a href="signup.php">Signup</a><br>
         <input type="submit" class="btn btn-danger" name="login" value="Enviar">
     </form>
+    </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 </body>

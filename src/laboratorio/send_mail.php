@@ -66,7 +66,7 @@ $attachment = chunk_split(base64_encode($pdf));
 
 $message = '';
 
-$from = 'luisaranaga13@gmail.com';
+$from = '';
 
 $body = "--" . $separator . $eol;
 $body .= "Content-Transfer-Encoding: 7bit" . $eol . $eol;

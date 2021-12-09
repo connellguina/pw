@@ -1,7 +1,8 @@
 <?php
+include 'db.php';
 include 'only-not-user.php';
 
-if ($_POST['signup']) {
+if (isset($_POST['signup'])) {
     $username = mysqli_real_escape_string($db, $_POST['username']);
     $password = mysqli_real_escape_string($db, password_hash($_POST['password'], PASSWORD_BCRYPT));
     $role = mysqli_real_escape_string($db, $_POST['role']);
@@ -36,24 +37,28 @@ if ($_POST['signup']) {
 </head>
 
 <body>
-
-    <form action="signup.php" method="post">
+    <div class="container">
+        <h3>Signup</h3>
+        <form action="signup.php" method="post">
         <?php
 
-        if ($_SESSION['msg']) {
+        if (isset($_SESSION['msg'])) {
             echo "<div class='alert alert-light' role='alert'>{$_SESSION['msg']}</div>";
         }
 
         ?>
         <input type="text" class="form-control" name="username" placeholder="Username" required>
         <input type="password" name="password" class="form-control" placeholder="Password" required>
-        <select name="rol" class="form-select" required>
+        <select name="role" class="form-select" required>
             <option value="">Select role</option>
             <option value="nurse">Nurse</option>
             <option value="doctor">Doctor</option>
         </select>
+        <a href="login.php">Login</a><br>
         <input type="submit" class="btn btn-danger" name="signup" value="Enviar">
     </form>
+    </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 </body>
