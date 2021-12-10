@@ -18,6 +18,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['msg'] = 'USUARIO O CONTRASEÑA INVÁLIDA';
                 header('Location: login.php');
             } else {
+                $_SESSION['user_id'] = $user['id'];
                 header('Location: index.php');
             }
             exit;
